@@ -11,17 +11,12 @@
         <form method="POST">
         
             Name: <input type="text" name="name"
-                        value="<%= planetInfo.planetName %>"><br>    
-            <!--Gender: <input type="radio" name="gender" value="F" 
-                         <%= authorInfo.sex == 'F'?"checked":"" %>
-                        >Female
-                    <input type="radio" name="gender" value="M"
-                       <%= authorInfo.sex == 'M'?"checked":"" %>
-                    >Male -->
-                    
-            <input type="hidden" name="planetId" value="<%= planetInfo.planetId %>"> 
+                        value="<%= planetInfo.name %>"><br>    
+                        
+            Price: <input type="number" name="price"
+                        value="<%= planetInfo.price %>"><br>
             
-            <!--TODO: Add the remaining fields -->
+            
             <br><br>
             <button>Update Planet</button>
         

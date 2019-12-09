@@ -97,7 +97,6 @@ app.post("/addPlanet", async function(req, res){
 app.get("/updatePlanet", async function(req, res){
 
   let planetInfo = await getPlanetInfo(req.query.name);    
-  //console.log(authorInfo);
   res.render("updatePlanet", {"planetInfo":planetInfo});
 });
 
@@ -116,7 +115,7 @@ app.post("/updatePlanet", async function(req, res){
 });
 
 app.get("/deletePlanet", async function(req, res){
- let rows = await deletePlanet(req.query.authorId);
+ let rows = await deletePlanet(req.query.name);
  console.log(rows);
   let message = "Planet WAS NOT deleted!";
   
@@ -142,10 +141,10 @@ function insertPlanet(body){
            console.log("Connected!");
         
            let sql = `INSERT INTO planets
-                        (name, price, description)
-                         VALUES (?,?,?)`;
+                        (name, price)
+                         VALUES (?,?)`;
         
-           let params = [body.name, body.price, body.description];
+           let params = [body.name, body.price];
         
            conn.query(sql, params, function (err, rows, fields) {
               if (err) throw err;
@@ -169,11 +168,10 @@ function updatePlanet(body){
         
            let sql = `UPDATE planets
                       SET name = ?, 
-                          price = ?, 
-                          description = ?
+                          price = ?
                      WHERE name = ?`;
         
-           let params = [body.firstName, body.lastName, body.gender, body.authorId];
+           let params = [body.name, body.price];
         
            console.log(sql);
            
@@ -187,7 +185,6 @@ function updatePlanet(body){
         });//connect
     });//promise 
 } // updatePlanet
-
 
 
 function deletePlanet(name){
@@ -250,9 +247,9 @@ function getPlanetInfo(name){
         
            let sql = `SELECT * 
                       FROM planets
-                      WHERE name =?`;
+                      WHERE name = ?`;
         
-           conn.query(sql, function (err, rows, fields) {
+           conn.query(sql, [name], function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
               conn.end();
