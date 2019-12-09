@@ -51,7 +51,9 @@ app.get("/admin", async function(req, res){
 });
 
 app.post("/loginProcess", function(req, res) {
-    if ( req.body.username == "admin" && req.body.password == "secret") {
+    console.log(req.username );
+    console.log(req.password );
+    if ( req.username == "admin" && req.password == "secret") {
        req.session.authenticated = true;
        res.send({"loginSuccess":true});
     } else {
