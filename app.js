@@ -5,6 +5,8 @@ const session = require('express-session');
 
 app.set("view engine", "ejs");
 app.use(express.static("public")); //folder for images, css, js
+app.use(express.urlencoded()); //use to parse data sent using the POST method
+app.use(session({ secret: 'any word', cookie: { maxAge: 60000 }}));
 
 app.get("/", async function(req, res){
     res.render("index");
@@ -161,7 +163,7 @@ function updatePlanet(body){
                       SET name = ?, 
                           price = ?, 
                           description = ?
-                     WHERE planetId = ?`;
+                     WHERE name = ?`;
         
            let params = [body.firstName, body.lastName, body.gender, body.authorId];
         
@@ -180,7 +182,7 @@ function updatePlanet(body){
 
 
 
-function deletePlanet(planetId){
+function deletePlanet(name){
    
    let conn = dbConnection();
     
@@ -190,9 +192,9 @@ function deletePlanet(planetId){
            console.log("Connected!");
         
            let sql = `DELETE FROM planets
-                      WHERE planetId = ?`;
+                      WHERE name = ?`;
         
-           conn.query(sql, [planetId], function (err, rows, fields) {
+           conn.query(sql, [name], function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
               conn.end();
@@ -202,7 +204,7 @@ function deletePlanet(planetId){
         });//connect
     });//promise 
 }
-function getPlanetInfo(planetId){
+function getPlanetInfo(name){
    
    let conn = dbConnection();
     
@@ -213,9 +215,9 @@ function getPlanetInfo(planetId){
         
            let sql = `SELECT *
                       FROM planets
-                      WHERE planetId = ?`;
+                      WHERE name = ?`;
         
-           conn.query(sql, [planetId], function (err, rows, fields) {
+           conn.query(sql, [name], function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
               conn.end();
