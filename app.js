@@ -14,6 +14,13 @@ app.get("/search", async function(req, res){
     res.render("search");
 });
 
+app.get("/cart", async function(req, res){
+    let rows = await getCart();
+    //let rows = await getPlanets(req.query);
+    //res.render("quotes", {"records":rows});
+    res.render("cart", {"cart":rows});
+});
+
 app.get("/results", async function(req, res){
     let rows = await getPlanets(req.query);
     //res.render("quotes", {"records":rows});
@@ -48,7 +55,34 @@ function getPlanets(query){
         });//connect
     });//promise
     
-}//getQuotes
+}
+
+
+function getCart(){
+    
+    let conn = dbConnection();
+    
+    return new Promise(function(resolve, reject){
+        conn.connect(function(err) {
+           if (err) throw err;
+           console.log("Connected!");
+            
+            let params = [];
+            
+           let sql = `SELECT product, price
+                      FROM cart`;
+        
+           console.log("SQL:", sql)
+           conn.query(sql, params, function (err, rows, fields) {
+              if (err) throw err;
+              //res.send(rows);
+              resolve(rows);
+           });
+        
+        });//connect
+    });//promise
+    
+}
 
 //values in red must be updated
 function dbConnection(){

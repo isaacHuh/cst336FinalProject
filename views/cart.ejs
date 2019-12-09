@@ -9,7 +9,6 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
        
     </head>
-    
     <body>
         <nav class="text-center">
             <br>
@@ -18,7 +17,19 @@
             <a href="/cart"><strong>Cart</strong></a>
             <a><strong>Login</strong></a>
         </nav>
-        <h1 class="text-center"> Planetary Market </h1>
+        <h1 class="text-center"> Cart </h1>
 
+
+        <!-- search stuff-->
+        <div class="container">
+            <table class="table">
+            <% cart.forEach( function(element){ %> 
+                <tr>
+                    <td><h2><%= element.product %></h2></td>
+                    <td><h2><%= element.price %></h2></td>
+                </tr>
+            <% })  %>
+            </table>
+        </div>
     </body>
 </html>
