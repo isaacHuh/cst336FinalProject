@@ -5,6 +5,8 @@ const session = require('express-session');
 
 app.set("view engine", "ejs");
 app.use(express.static("public")); //folder for images, css, js
+app.use(express.urlencoded()); //use to parse data sent using the POST method
+app.use(session({ secret: 'any word', cookie: { maxAge: 60000 }}));
 
 app.get("/", async function(req, res){
     res.render("index");
@@ -20,13 +22,6 @@ app.get("/search", async function(req, res){
     //res.render("quotes", {"records":rows});
     res.render("search");
 }); // search
-
-app.get("/cart", async function(req, res){
-    let rows = await getCart();
-    //let rows = await getPlanets(req.query);
-    //res.render("quotes", {"records":rows});
-    res.render("cart", {"cart":rows});
-});
 
 app.get("/results", async function(req, res){
     let rows = await getPlanets(req.query);
@@ -51,9 +46,7 @@ app.get("/admin", async function(req, res){
 });
 
 app.post("/loginProcess", function(req, res) {
-    console.log(req.username );
-    console.log(req.password );
-    if ( req.username == "admin" && req.password == "secret") {
+    if ( req.body.username == "admin" && req.body.password == "secret") {
        req.session.authenticated = true;
        res.send({"loginSuccess":true});
     } else {
@@ -163,7 +156,7 @@ function updatePlanet(body){
                       SET name = ?, 
                           price = ?, 
                           description = ?
-                     WHERE planetId = ?`;
+                     WHERE name = ?`;
         
            let params = [body.firstName, body.lastName, body.gender, body.authorId];
         
@@ -182,7 +175,7 @@ function updatePlanet(body){
 
 
 
-function deletePlanet(planetId){
+function deletePlanet(name){
    
    let conn = dbConnection();
     
@@ -192,9 +185,9 @@ function deletePlanet(planetId){
            console.log("Connected!");
         
            let sql = `DELETE FROM planets
-                      WHERE planetId = ?`;
+                      WHERE name = ?`;
         
-           conn.query(sql, [planetId], function (err, rows, fields) {
+           conn.query(sql, [name], function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
               conn.end();
@@ -204,7 +197,7 @@ function deletePlanet(planetId){
         });//connect
     });//promise 
 }
-function getPlanetInfo(planetId){
+function getPlanetInfo(name){
    
    let conn = dbConnection();
     
@@ -215,9 +208,9 @@ function getPlanetInfo(planetId){
         
            let sql = `SELECT *
                       FROM planets
-                      WHERE planetId = ?`;
+                      WHERE name = ?`;
         
-           conn.query(sql, [planetId], function (err, rows, fields) {
+           conn.query(sql, [name], function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
               conn.end();
@@ -256,34 +249,7 @@ function getPlanets(query){
         });//connect
     });//promise
     
-}
-
-
-function getCart(){
-    
-    let conn = dbConnection();
-    
-    return new Promise(function(resolve, reject){
-        conn.connect(function(err) {
-           if (err) throw err;
-           console.log("Connected!");
-            
-            let params = [];
-            
-           let sql = `SELECT product, price
-                      FROM cart`;
-        
-           console.log("SQL:", sql)
-           conn.query(sql, params, function (err, rows, fields) {
-              if (err) throw err;
-              //res.send(rows);
-              resolve(rows);
-           });
-        
-        });//connect
-    });//promise
-    
-}
+}//getQuotes
 
 //values in red must be updated
 function dbConnection(){
