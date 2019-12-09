@@ -42,7 +42,7 @@ app.get("/admin", async function(req, res){
    
    if (req.session.authenticated) { //if user hasn't authenticated, sending them to login screen
        
-     let planetList = await getPlanets();  
+     let planetList = await getPlanetList();  
        res.render("admin", {"planetList":planetList});  
        
    }  else { 
@@ -88,7 +88,7 @@ app.post("/addPlanet", async function(req, res){
 
 app.get("/updatePlanet", async function(req, res){
 
-  let planetInfo = await getPlanetInfo(req.query.authorId);    
+  let planetInfo = await getPlanetInfo(req.query.name);    
   //console.log(authorInfo);
   res.render("updatePlanet", {"planetInfo":planetInfo});
 });
@@ -116,7 +116,7 @@ app.get("/deletePlanet", async function(req, res){
       message= "Planet successfully deleted!";
   }    
     
-   let planetList = await getPlanets();  
+   let planetList = await getPlanetList();  
    res.render("admin", {"planetList":planetList});
 });
 
@@ -204,6 +204,7 @@ function deletePlanet(name){
         });//connect
     });//promise 
 }
+
 function getPlanetInfo(name){
    
    let conn = dbConnection();
@@ -213,11 +214,11 @@ function getPlanetInfo(name){
            if (err) throw err;
            console.log("Connected!");
         
-           let sql = `SELECT *
+           let sql = `SELECT * 
                       FROM planets
-                      WHERE name = ?`;
+                      WHERE name =?`;
         
-           conn.query(sql, [name], function (err, rows, fields) {
+           conn.query(sql, function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
               conn.end();
@@ -226,7 +227,32 @@ function getPlanetInfo(name){
         
         });//connect
     });//promise 
-} // getPlanetInfo
+} // getPlanetList
+
+function getPlanetList(){
+   
+   let conn = dbConnection();
+    
+    return new Promise(function(resolve, reject){
+        conn.connect(function(err) {
+           if (err) throw err;
+           console.log("Connected!");
+        
+           let sql = `SELECT name
+                        FROM planets
+                        ORDER BY name`;
+        
+           conn.query(sql, function (err, rows, fields) {
+              if (err) throw err;
+              //res.send(rows);
+              conn.end();
+              resolve(rows);
+           });
+        
+        });//connect
+    });//promise 
+}
+
 
 function getPlanets(query){
     

@@ -31,8 +31,8 @@
         <% planetList.forEach(function(planet){  %>
         
         
-            [<a href="/updatePLanet?planetId=<%= planet.planetId %>">UPDATE</a>] 
-            [<a onclick="deleteConfirm()" class="removePlanet" href="/deletePlanet?planetId=<%= planet.planetId %>">DELETE</a>] 
+            [<a href="/updatePLanet?name=<%= planet.name %>">UPDATE</a>] 
+            [<a onclick="deleteConfirm()" class="removePlanet" href="/deletePlanet?name=<%= planet.name %>">DELETE</a>] 
             
             <%= planet.name %> <br>
         
