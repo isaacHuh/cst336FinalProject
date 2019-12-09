@@ -22,11 +22,14 @@
         <div class="container">
             <table class="table">
             <% planets.forEach( function(planet){ %> 
+    
                 <tr>
                     <td><img class="rounded" src="<%=planet.image%>" width="200px"/></td>
                     <td><h2><%= planet.name %></h2></td>
                     <td><h2><%= planet.price %></h2></td>
+                    <!--<a href = "/addPlanetToCart?planetName=<%=planet.name%>&planetPrice=<%=planet.price%>"><button>Add To Cart</button></a>-->
                 </tr>
+
             <% })  %>
             </table>
         </div>

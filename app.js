@@ -23,9 +23,23 @@ app.get("/search", async function(req, res){
     res.render("search");
 }); // search
 
+app.get("/cart", async function(req, res){
+    let rows = await getCart();
+    //let rows = await getPlanets(req.query);
+    //res.render("quotes", {"records":rows});
+    res.render("cart", {"cart":rows});
+});
+
 app.get("/results", async function(req, res){
     let rows = await getPlanets(req.query);
     //res.render("quotes", {"records":rows});
+    res.render("results", {"planets":rows});
+}); // results
+
+app.get("/addPlanetToCart", async function(req, res){
+    insertToCart(req.query.planetName, req.query.planetPrice);
+    
+    let rows = req.query.planets;
     res.render("results", {"planets":rows});
 }); // results
 
@@ -66,6 +80,7 @@ app.get("/logout", function(req, res){
 app.get("/addPlanet", function(req, res){
   res.render("newPlanet");
 });
+
 
 app.post("/addPlanet", async function(req, res){
   let rows = await insertPlanet(req.body);
@@ -198,6 +213,32 @@ function deletePlanet(name){
     });//promise 
 }
 
+function insertToCart(name, price){
+   
+   let conn = dbConnection();
+    
+    return new Promise(function(resolve, reject){
+        conn.connect(function(err) {
+           if (err) throw err;
+           console.log("Connected!");
+        
+           let sql = `INSERT INTO cart
+                        (product, price)
+                         VALUES (?,?)`;
+        
+           let params = [name, price];
+        
+           conn.query(sql, params, function (err, rows, fields) {
+              if (err) throw err;
+              //res.send(rows);
+              conn.end();
+              resolve(rows);
+           });
+        
+        });//connect
+    });//promise 
+}
+
 function getPlanetInfo(name){
    
    let conn = dbConnection();
@@ -275,7 +316,34 @@ function getPlanets(query){
         });//connect
     });//promise
     
-}//getQuotes
+}
+
+
+function getCart(){
+    
+    let conn = dbConnection();
+    
+    return new Promise(function(resolve, reject){
+        conn.connect(function(err) {
+           if (err) throw err;
+           console.log("Connected!");
+            
+            let params = [];
+            
+           let sql = `SELECT product, price
+                      FROM cart`;
+        
+           console.log("SQL:", sql)
+           conn.query(sql, params, function (err, rows, fields) {
+              if (err) throw err;
+              //res.send(rows);
+              resolve(rows);
+           });
+        
+        });//connect
+    });//promise
+    
+}
 
 //values in red must be updated
 function dbConnection(){
