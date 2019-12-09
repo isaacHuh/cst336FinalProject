@@ -97,6 +97,7 @@ app.post("/addPlanet", async function(req, res){
 app.get("/updatePlanet", async function(req, res){
 
   let planetInfo = await getPlanetInfo(req.query.name);    
+  //console.log(authorInfo);
   res.render("updatePlanet", {"planetInfo":planetInfo});
 });
 
