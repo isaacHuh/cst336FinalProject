@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        
+        <script>
+            
+            function deleteConfirm(){
+              
+                 if (!confirm("Delete planet?")) {
+                      event.preventDefault(); //prevents default behavior of the links
+                    }
+            }
+        </script>
+        
+        
+    </head>
+    <body>
+        
+        <h1> Admin Section </h1>
+
+        <form action="/addPlanet">
+          <button> Add New Planet </button>
+        </form>
+        
+        <h3>Planets</h3>
+        
+        <% planetList.forEach(function(planet){  %>
+        
+        
+            [<a href="/updatePLanet?planetId=<%= planet.planetId %>">UPDATE</a>] 
+            [<a onclick="deleteConfirm()" class="removePlanet" href="/deletePlanet?planetId=<%= planet.planetId %>">DELETE</a>] 
+            
+            <%= planet.name %> <br>
+        
+        
+        <% }) %>
+        
+        <a href="/logout" class="logoutBtn">Logout</button>
+        
+        <link href="/css/styles.css" rel="stylesheet" />
+    </body>
+</html>
