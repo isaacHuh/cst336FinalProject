@@ -313,10 +313,20 @@ function getPlanets(query){
             
             let params = [];
             
-           let sql = `SELECT name, price, image
+           let sql = `SELECT *
                       FROM planets
                       WHERE 
-                      name LIKE '%${keyword}%'`;
+                      name LIKE '%${keyword}%' `;
+                      
+            if (query.size) { //user selected a category
+              sql += "AND size < ? ";
+              params.push(query.size);
+           }
+           
+           if (query.budget) { //user selected a Name
+              sql += "AND price < ? ";
+              params.push(query.budget);
+           }
         
            console.log("SQL:", sql)
            conn.query(sql, params, function (err, rows, fields) {
