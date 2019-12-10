@@ -6,7 +6,37 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+       
+        <script>
+
+            $(document).ready(function(){
+                // initial keyword search
+                //$("#keyword").val("planets");
+                search();        
+                
+                //$("#searchBtn").on("click", function(){ search(); })
+                //$("#searchBtn").on("click", search);
+                //$("#dropdown").on("click", search);
+                
+                function search() {  
+                  $.ajax({
+                      method: "GET",
+                      url: "https://pixabay.com/api/",
+                      dataType: "json",
+                      data: { "key":"5589438-47a0bca778bf23fc2e8c5bf3e", "q":"nasa"},
+                      success: function(result,status) {
+                        result.hits = _.shuffle(result.hits);
+                        //alert(result);
+                        $("#images").html(`<img src=${result.hits[0].webformatURL}>`);
+
+                      }
+          
+                  });//ajax
+                } //search
+              }); //document.ready
+        </script>
        
     </head>
     
@@ -19,6 +49,13 @@
             <a href="/login"><strong>Login</strong></a>
         </nav>
         <h1 class="text-center"> Planetary Market </h1>
+
+        <hr/>
+        <br>
+        
+        <div class="row">
+            <div id="images" alt="img1" style="width:100%"></div>
+        </div>
 
     </body>
 </html>
