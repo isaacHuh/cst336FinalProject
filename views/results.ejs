@@ -35,29 +35,18 @@
             <a href="/login"><strong>Login</strong></a>
         </nav>
         
-        <h1 class="text-center"> Planets For Sale:  </h1>
+         <h1 class="text-center display-3"><strong><i> Planets For Sale: </i></strong></h1>
+         
         <div class="container">
             <table class="table">
             <% planets.forEach( function(planet){ %> 
     
                 <tr>
                     <td><img class="rounded" src="<%=planet.image%>" width="200px"/></td>
-                    <td class="align-middle"><h2><%= planet.name %></h2></td>
+                    <td class="align-middle"><h2><%= planet.name %></h2> <br>Planet Climate: <%= planet.climate %> <br>Planet Description: <%= planet.description %> <br>Planet Size: <%= planet.size %> <br>Distance from Sun: <%= planet.distance %> </td>
                     <td class="align-middle"><h2>$<%= planet.price %></h2></td>
-                    <!--
-                    <form action="/results?planetName=<planet.name%>?planetPrice=<planet.price%>" method="post">
-                        <input type="submit" class="btn btn-primary" name="addBtn" value="Add To Cart" />
-                    </form>-->
                     
                     <td class="align-middle"><button class="btn btn-primary" onclick="insertToCart('<%=planet.name%>','<%=planet.price%>')">Add To Cart</button></td>
-                    <!--
-                    <form action="/addToCart" method="post">
-                        <input type="hidden" id="planets" name="planets" value="<planets%>">
-                        <input type="hidden" id="planetName" name="planetName" value="<planet.name%>">
-                        <input type="hidden" id="planetPrice" name="planetPrice" value="<planet.price%>">
-                        <td><button name="addBtn" type="submit" value="<planet.name%> <planet.price%>">Add To Cart</button><td>
-                    </form>-->
-                    <!--<td class="align-middle"><button type="button" class="btn btn-primary" class="addBtn" value="<planet.name%> <planet.price%>">Add To Cart</button></td>-->
                 </tr>
 
             <% })  %>

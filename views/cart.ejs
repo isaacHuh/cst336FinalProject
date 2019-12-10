@@ -25,22 +25,30 @@
             <a href="/cart"><strong>Cart</strong></a>
             <a href="/login"><strong>Login</strong></a>
         </nav>
-        <h1 class="text-center"> Cart </h1>
+        <h1 class="text-center display-3"><strong><i> Cart </i></strong></h1>
 
 
         <!-- search stuff-->
         <div class="container">
             <table class="table">
-            <% cart.forEach( function(element){ %> 
+            <% let totalPrice = 0 
+                cart.forEach( function(element){ 
+                    totalPrice += element.price%> 
                 <tr>
                     <td><h2><%= element.product %></h2></td>
-                    <td><h2><%= element.price %></h2></td>
+                    <td><h2>$<%= element.price %></h2></td>
                 </tr>
+                
+                
             <% })  %>
             </table>
         </div>
+        
+        <br>
+        <h2 class="text-center">Total Price: $<%=totalPrice%></h2>
+        <br>
         <div class="text-center">
-            <button id="clearBtn">Clear Cart</button><br><br>
+            <button id="clearBtn" class="btn btn-primary">Clear Cart</button><br><br>
         </div>
     </body>
 </html>
