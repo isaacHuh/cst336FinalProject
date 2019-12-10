@@ -30,18 +30,32 @@ app.get("/cart", async function(req, res){
     res.render("cart", {"cart":rows});
 });
 
+app.get("/clearCart", async function(req, res){
+    clearCart();
+    let rows = await getCart();
+    res.render("cart", {"cart":rows});
+});
+
 app.get("/results", async function(req, res){
     let rows = await getPlanets(req.query);
+    console.log(rows);
     //res.render("quotes", {"records":rows});
     res.render("results", {"planets":rows});
 }); // results
 
-app.get("/addPlanetToCart", async function(req, res){
-    insertToCart(req.query.planetName, req.query.planetPrice);
+
+app.post("/addToCart", async function(req, res){
+    insertToCart(req.body.planetName, req.body.planetPrice);
+    res.send(true);
     
-    let rows = req.query.planets;
-    res.render("results", {"planets":rows});
+    //+ "    " + req.body.planetPrice + " was added to your cart!");
+    
+    //let rows = await getPlanets(req.query);
+    //res.send("planetName: "+ req.body.planetName);
+    //res.render("quotes", {"records":rows});
+    //res.render("results", {"planets":planets});
 }); // results
+
 
 app.get("/admin", async function(req, res){
     
@@ -330,6 +344,31 @@ function getCart(){
             
            let sql = `SELECT product, price
                       FROM cart`;
+        
+           console.log("SQL:", sql)
+           conn.query(sql, params, function (err, rows, fields) {
+              if (err) throw err;
+              //res.send(rows);
+              resolve(rows);
+           });
+        
+        });//connect
+    });//promise
+    
+}
+
+function clearCart(){
+    
+    let conn = dbConnection();
+    
+    return new Promise(function(resolve, reject){
+        conn.connect(function(err) {
+           if (err) throw err;
+           console.log("Connected!");
+            
+            let params = [];
+            
+           let sql = `DELETE FROM cart`;
         
            console.log("SQL:", sql)
            conn.query(sql, params, function (err, rows, fields) {
