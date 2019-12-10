@@ -29,7 +29,7 @@
                       success: function(result,status) {
                         result.hits = _.shuffle(result.hits);
                         //alert(result);
-                        $("#images").html(`<img src=${result.hits[0].webformatURL}>`);
+                        $("#images").html(`<img class='rounded' src='${result.hits[0].webformatURL}' width='400px' >`);
 
                       }
           
@@ -54,7 +54,7 @@
         <br>
         
         <div class="row">
-            <div id="images" alt="img1" style="width:100%"></div>
+            <div class="text-center" id="images" alt="img1" style="width:100%"></div>
         </div>
 
     </body>
