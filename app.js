@@ -6,7 +6,7 @@ const session = require('express-session');
 app.set("view engine", "ejs");
 app.use(express.static("public")); //folder for images, css, js
 app.use(express.urlencoded()); //use to parse data sent using the POST method
-app.use(session({ secret: 'any word', cookie: { maxAge: 60000 }}));
+app.use(session({ secret: 'any word', cookie: { maxAge: 6000000 }}));
 
 app.get("/", async function(req, res){
     res.render("index");
