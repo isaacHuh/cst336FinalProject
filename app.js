@@ -78,10 +78,9 @@ app.post("/loginProcess", function(req, res) {
     
 }); // loginProcess
 
-app.get("/logout", function(req, res){    
+app.get("/logout", async function(req, res){    
     if (req.session) {
-        req.logout();
-        res.redirects("/login");
+        res.render("login");
   }
 }); // logout
 

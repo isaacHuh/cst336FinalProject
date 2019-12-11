@@ -2,13 +2,24 @@
 <html>
     <head>
         <title> </title>
+        
         <link href="/css/styles.css" rel="stylesheet"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-       
+
+        
         <script>
+            
+            $(document).ready(function() {
+                $("#logoutBtn").on("click", function(){
+                    
+                    location.href = "/logout"; //redirects to admin route
+                    
+                });//click
+                
+            }); //document.ready
             
             function deleteConfirm(){
               
@@ -20,49 +31,30 @@
         
         
     </head>
-    <body class="text-center">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="/">Planetary Market</a>
-        
-            <div class="collapse navbar-collapse" id="navbarColor02">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="/search">Search</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/cart">Cart</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/admin">Admin</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-          
-        <h1 class="text-center display-3"><strong><i> Admin Section </i></strong></h1>
-
-        <form action="/addPlanet">
-          <br><button class="btn btn-primary"> Add New Planet </button><br>
-        </form>
-        
-        <br>
-        <h3>Planets</h3>
-        
-        <% planetList.forEach(function(planet){  %>
-        
-        
-            [<a href="/updatePlanet?name=<%= planet.name %>">UPDATE</a>] 
-            [<a onclick="deleteConfirm()" class="removePlanet" href="/deletePlanet?name=<%= planet.name %>">DELETE</a>] 
+    <body>
+        <div class="text-center">
             
-            <%= planet.name %> <br>
-        
-        
-        <% }) %>
-        
-        <a href="/logout" class="logoutBtn">Logout</button>
+            <h1> Admin Section </h1>
+    
+            <form action="/addPlanet">
+              <button> Add New Planet </button>
+            </form>
+            
+            <h3>Planets</h3>
+            
+            <% planetList.forEach(function(planet){  %>
+            
+            
+                [<a href="/updatePlanet?name=<%= planet.name %>">UPDATE</a>] 
+                [<a onclick="deleteConfirm()" class="removePlanet" href="/deletePlanet?name=<%= planet.name %>">DELETE</a>] 
+                
+                <%= planet.name %> <br>
+            
+            
+            <% }) %>
+            
+            <button class="btn btn-primary" id="logoutBtn">Logout</button>
+        </div>
         
         <link href="/css/styles.css" rel="stylesheet" />
     </body>
