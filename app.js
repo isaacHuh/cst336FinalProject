@@ -24,16 +24,17 @@ app.get("/search", async function(req, res){
 }); // search
 
 app.get("/cart", async function(req, res){
-    let rows = await getCart();
+    let rows = await getCartPlanets();
+    let rowsSecond = await getCartNonPlanets();
     //let rows = await getPlanets(req.query);
     //res.render("quotes", {"records":rows});
-    res.render("cart", {"cart":rows});
+    res.render("cart", {"cartPlanets":rows, "cartNonPlanets":rowsSecond});
 });
 
 app.get("/clearCart", async function(req, res){
     clearCart();
-    let rows = await getCart();
-    res.render("cart", {"cart":rows});
+    let rows = await getCartPlanets();
+    res.render("cart", {"cartPlanets":rows, "cartNonPlanets":rows});
 });
 
 app.get("/results", async function(req, res){
@@ -383,7 +384,7 @@ function getNonPlanets(query){
 }
 
 
-function getCart(){
+function getCartPlanets(){
     
     let conn = dbConnection();
     
@@ -394,8 +395,33 @@ function getCart(){
             
             let params = [];
             
-           let sql = `SELECT * FROM cart NATURAL JOIN planets 
-`;
+           let sql = `SELECT * FROM cart NATURAL JOIN planets`;
+           //let sql2 =`SELECT * FROM cart JOIN non_planets WHERE cart.name = non_planets.name;`
+        
+           console.log("SQL:", sql);
+           conn.query(sql, params, function (err, rows, fields) {
+              if (err) throw err;
+              //res.send(rows);
+              resolve(rows);
+           });
+        
+        });//connect
+    });//promise
+    
+}
+
+function getCartNonPlanets(){
+    
+    let conn = dbConnection();
+    
+    return new Promise(function(resolve, reject){
+        conn.connect(function(err) {
+           if (err) throw err;
+           console.log("Connected!");
+            
+            let params = [];
+            
+           let sql =`SELECT * FROM cart JOIN non_planets WHERE cart.name = non_planets.name;`
         
            console.log("SQL:", sql);
            conn.query(sql, params, function (err, rows, fields) {

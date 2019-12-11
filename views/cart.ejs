@@ -43,12 +43,23 @@
         <div class="container">
             <table class="table">
             <% let totalPrice = 0 
-                cart.forEach( function(element){ 
+                cartPlanets.forEach( function(element){ 
                     totalPrice += element.price%> 
             
                 <tr>
                     <td><img class="rounded" src="<%= element.image%>" width="200px"/></td>
                     <td class="align-middle"><h2><%= element.name %></h2> <br><b>Climate:</b> <%= element.climate %> <br><b>Description:</b> <%= element.description %> <br><b>Size:</b> <%= element.size %> Miles <br><b>Distance from Sun:</b> <%= element.distance %> Miles </td>
+                    <td class="align-middle"><h2>$<%= element.price %></h2></td>
+               </tr>
+                
+            <% })  %>
+            
+            <% cartNonPlanets.forEach( function(element){ 
+                    totalPrice += element.price%> 
+            
+                <tr>
+                    <td><img class="rounded" src="<%= element.image%>" width="200px"/></td>
+                    <td class="align-middle"><h2><%= element.name %></h2> <br><b>Orbits:</b> <%= element.orbit %> <br><b>Size:</b> <%= element.size %></td>
                     <td class="align-middle"><h2>$<%= element.price %></h2></td>
                </tr>
                 
