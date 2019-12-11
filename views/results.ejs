@@ -91,6 +91,18 @@
                 </tr>
 
             <% })  %>
+            
+            <% non_planets.forEach( function(non_planets){ %> 
+    
+                <tr>
+                    <td><img class="rounded" src="<%=non_planets.image%>" width="200px"/></td>
+                    <td class="align-middle"><h2><%= non_planets.name %></h2> <br><b>Orbits:</b> <%= non_planets.orbit %> <br><b>Moon Size:</b> <%= non_planets.size %> Miles <br></td>
+                    <td class="align-middle"><h2>$<%= non_planets.price %></h2></td>
+                    
+                    <td class="align-middle"><button class="btn btn-primary" onclick="insertToCart('<%=non_planets.name%>','<%=non_planets.price%>')">Add To Cart</button></td>
+                </tr>
+
+            <% })  %>
             </table>
         </div>
         

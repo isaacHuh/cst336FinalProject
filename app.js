@@ -38,9 +38,10 @@ app.get("/clearCart", async function(req, res){
 
 app.get("/results", async function(req, res){
     let rows = await getPlanets(req.query);
-    console.log(rows);
+    let rows2 = await getNonPlanets(req.query);
+    console.log(rows + rows2);
     //res.render("quotes", {"records":rows});
-    res.render("results", {"planets":rows});
+    res.render("results", {"planets":rows, "non_planets":rows2});
 }); // results
 
 
@@ -77,10 +78,9 @@ app.post("/loginProcess", function(req, res) {
     
 }); // loginProcess
 
-app.get("/logout", function(req, res){    
+app.get("/logout", async function(req, res){    
     if (req.session) {
-        req.logout();
-        res.redirects("/login");
+        res.render("login");
   }
 }); // logout
 
@@ -88,6 +88,9 @@ app.get("/addPlanet", function(req, res){
   res.render("newPlanet");
 });
 
+app.post("/genReport", function(req, res){
+    
+}); // generate admin report
 
 app.post("/addPlanet", async function(req, res){
   let rows = await insertPlanet(req.body);
@@ -327,7 +330,47 @@ function getPlanets(query){
               params.push(query.budget);
            }
         
-           console.log("SQL:", sql)
+           console.log("SQL:", sql);
+           conn.query(sql, params, function (err, rows, fields) {
+              if (err) throw err;
+              //res.send(rows);
+              resolve(rows);
+           });
+        
+        });//connect
+    });//promise
+    
+}
+
+function getNonPlanets(query){
+    
+    let keyword = query.keyword;
+    
+    let conn = dbConnection();
+    
+    return new Promise(function(resolve, reject){
+        conn.connect(function(err) {
+           if (err) throw err;
+           console.log("Connected!");
+            
+            let params = [];
+            
+           let sql = `SELECT *
+                      FROM non_planets
+                      WHERE 
+                      name LIKE '%${keyword}%' `;
+                      
+            if (query.size) { //user selected a category
+              sql += "AND size < ? ";
+              params.push(query.size);
+           }
+           
+           if (query.budget) { //user selected a Name
+              sql += "AND price < ? ";
+              params.push(query.budget);
+           }
+        
+           console.log("SQL:", sql);
            conn.query(sql, params, function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
@@ -351,9 +394,10 @@ function getCart(){
             
             let params = [];
             
-           let sql = `SELECT * FROM cart NATURAL JOIN planets`;
+           let sql = `SELECT * FROM cart NATURAL JOIN planets 
+`;
         
-           console.log("SQL:", sql)
+           console.log("SQL:", sql);
            conn.query(sql, params, function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
@@ -378,7 +422,7 @@ function clearCart(){
             
            let sql = `DELETE FROM cart`;
         
-           console.log("SQL:", sql)
+           console.log("SQL:", sql);
            conn.query(sql, params, function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
