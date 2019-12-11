@@ -88,6 +88,9 @@ app.get("/addPlanet", function(req, res){
   res.render("newPlanet");
 });
 
+app.post("/genReport", function(req, res){
+    
+}); // generate admin report
 
 app.post("/addPlanet", async function(req, res){
   let rows = await insertPlanet(req.body);

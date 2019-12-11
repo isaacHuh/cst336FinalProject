@@ -15,7 +15,13 @@
             $(document).ready(function() {
                 $("#logoutBtn").on("click", function(){
                     
-                    location.href = "/logout"; //redirects to admin route
+                    location.href = "/logout"; //redirects to login route
+                    
+                });//click
+                
+                $("#reportBtn").on("click", function(){
+                    
+                    location.href ="/genReport";
                     
                 });//click
                 
@@ -39,6 +45,8 @@
             <form action="/addPlanet">
               <button> Add New Planet </button>
             </form>
+            
+            <button id="reportBtn"> Generate Reports </button>
             
             <h3>Planets</h3>
             
