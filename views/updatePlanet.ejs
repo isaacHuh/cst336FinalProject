@@ -33,7 +33,7 @@
           
         <h1 class="text-center display-3"><strong><i> Updating Planet </i></strong></h1>
         
-
+        <br>
         <form method="POST">
             <input type="hidden" name="name" value="<%= planetInfo.name %>">
             Name: <%= planetInfo.name %> (Non-changable)<br>    
@@ -45,7 +45,7 @@
             Size: <input type="number" name="size"  value="<%= planetInfo.size %>"><br>
             Distance: <input type="number" name="distance" value="<%= planetInfo.distance %>"><br>
             <br>
-            Description: <textarea name="description" cols="50" height="20"><%= planetInfo.description %></textarea>
+            Description: <br><textarea name="description" cols="50" height="20"><%= planetInfo.description %></textarea>
             
             <br><br>
             <button class="btn btn-primary">Update Planet</button><br>
@@ -54,6 +54,6 @@
             
         </form>        
 
-        
+        <br><br>
     </body>
 </html>

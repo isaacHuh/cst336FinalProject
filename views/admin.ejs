@@ -61,12 +61,20 @@
           </nav>
           
         <h1 class="text-center display-3"><strong><i> Admin Section </i></strong></h1>
-    
+            
+            <br>
+            
             <form action="/addPlanet">
-              <button> Add New Planet </button>
+              <button class="btn btn-primary"> Add New Planet </button>
             </form>
             
-            <button id="reportBtn"> Generate Reports </button>
+            <br>
+            
+            <form action="/genReports">
+              <button class="btn btn-primary" id="reportBtn"> Generate Reports </button>
+            </form>
+            
+            <br>
             
             <h3>Planets</h3>
             
@@ -80,7 +88,7 @@
             
             
             <% }) %>
-            
+            <br>
             <button class="btn btn-primary" id="logoutBtn">Logout</button>
         </div>
         

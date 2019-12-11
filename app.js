@@ -40,10 +40,26 @@ app.get("/clearCart", async function(req, res){
 app.get("/results", async function(req, res){
     let rows = await getPlanets(req.query);
     let rows2 = await getNonPlanets(req.query);
-    console.log(rows + rows2);
+    //console.log(rows + rows2);
     //res.render("quotes", {"records":rows});
     res.render("results", {"planets":rows, "non_planets":rows2});
 }); // results
+
+app.get("/genReports", async function(req, res){
+    let averagePlanetPrice = await getAveragePlanetPrice();
+    averagePlanetPrice = averagePlanetPrice[0].average;
+    
+    let averageMoonPrice = await getAverageMoonPrice();
+    averageMoonPrice = averageMoonPrice[0].average;
+    
+    let largestPlanet = await getLargestPlanet();
+    
+    //console.log(rows + rows2);
+    //res.render("quotes", {"records":rows});
+    res.render("reports", {"averagePlanetPrice": averagePlanetPrice, 
+                        "averageMoonPrice": averageMoonPrice, 
+                        "largestPlanet": largestPlanet});
+}); // report
 
 
 app.post("/addToCart", async function(req, res){
@@ -88,10 +104,6 @@ app.get("/logout", async function(req, res){
 app.get("/addPlanet", function(req, res){
   res.render("newPlanet");
 });
-
-app.post("/genReport", function(req, res){
-    
-}); // generate admin report
 
 app.post("/addPlanet", async function(req, res){
   let rows = await insertPlanet(req.body);
@@ -228,6 +240,71 @@ function deletePlanet(name){
     });//promise 
 }
 
+function getAveragePlanetPrice(){
+   
+   let conn = dbConnection();
+    
+    return new Promise(function(resolve, reject){
+        conn.connect(function(err) {
+           if (err) throw err;
+           console.log("Connected!");
+        
+           let sql = `SELECT (SUM(price)/count(*)) as average FROM planets`;
+        
+           conn.query(sql, [], function (err, rows, fields) {
+              if (err) throw err;
+              //res.send(rows);
+              //conn.end();
+              //onsole.log(rows);
+              resolve(rows);
+           });
+        
+        });//connect
+    });//promise 
+}
+
+function getLargestPlanet(){
+   
+   let conn = dbConnection();
+    
+    return new Promise(function(resolve, reject){
+        conn.connect(function(err) {
+           if (err) throw err;
+           console.log("Connected!");
+        
+           let sql = `SELECT * FROM planets ORDER BY size DESC LIMIT 1`;
+        
+           conn.query(sql, [], function (err, rows, fields) {
+              if (err) throw err;
+
+              resolve(rows);
+           });
+        
+        });//connect
+    });//promise 
+}
+
+
+function getAverageMoonPrice(){
+   
+   let conn = dbConnection();
+    
+    return new Promise(function(resolve, reject){
+        conn.connect(function(err) {
+           if (err) throw err;
+           console.log("Connected!");
+        
+           let sql = `SELECT (SUM(price)/count(*)) as average FROM non_planets`;
+        
+           conn.query(sql, [], function (err, rows, fields) {
+              if (err) throw err;
+              resolve(rows);
+           });
+        
+        });//connect
+    });//promise 
+}
+
 function insertToCart(name, price){
    
    let conn = dbConnection();
@@ -294,7 +371,7 @@ function getPlanetList(){
            conn.query(sql, function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
-              conn.end();
+              //conn.end();
               resolve(rows);
            });
         
