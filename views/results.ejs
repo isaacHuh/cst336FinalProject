@@ -24,37 +24,7 @@
                 });//ajax
         
         } //document.ready
-        /*
-        $(document).ready(function(){
         
-                $("a").on("click", function(){
-                    //alert("test"); 
-                    $.ajax({
-                
-                        method: "GET",
-                        url: "/authorInfo?=",
-                        dataType: "json",
-                        data: { "authorId": $(this).attr("id")},
-                        success: function(result,status) {
-                          //alert(result[0].firstName);
-                          $("#authorPic").attr("src",`${result[0].portrait}`);
-    
-                          $("#authorName").html(result[0].firstName + " " + result[0].lastName);
-                          $("#dob").html("DOB: " + result[0].dob);
-                          $("#dod").html("DOD: " + result[0].dod);
-                          $("#sex").html("Sex: " + result[0].sex);
-                          $("#profession").html("Profession: " + result[0].profession);
-                          $("#country").html("Country: " + result[0].country)
-                          $("#bio").html("Bio: " + result[0].biography);
-                          
-                          $('#authorModal').modal("show");
-                          
-                        }
-                
-                    });//ajax
-                })
-        });*/
-    
         </script>
     </head>
     <body>
@@ -84,7 +54,7 @@
     
                 <tr>
                     <td><img class="rounded" src="<%=planet.image%>" width="200px"/></td>
-                    <td class="align-middle"><h2><%= planet.name %></h2> <br><b>Planet Climate:</b> <%= planet.climate %> <br><b>Planet Description:</b> <%= planet.description %> <br><b>Planet Size:</b> <%= planet.size %> Miles <br><b>Distance from Sun:</b> <%= planet.distance %> Miles </td>
+                    <td class="align-middle"><h2><%= planet.name %></h2> <br><b>Planet Climate:</b> <%= planet.climate %> <br><b>Planet Description:</b> <%= planet.description %> <br><b>Planet Size (Radius):</b> <%= planet.size %> Miles <br><b>Distance from Sun:</b> <%= planet.distance %> Miles </td>
                     <td class="align-middle"><h2>$<%= planet.price %></h2></td>
                     
                     <td class="align-middle"><button class="btn btn-primary" onclick="insertToCart('<%=planet.name%>','<%=planet.price%>')">Add</button></td>
@@ -96,7 +66,7 @@
     
                 <tr>
                     <td><img class="rounded" src="<%=non_planet.image%>" width="200px"/></td>
-                    <td class="align-middle"><h2><%= non_planet.name %></h2> <br><b>Orbits:</b> <%= non_planet.orbit %> <br><b>Moon Size:</b> <%= non_planet.size %> Miles <br></td>
+                    <td class="align-middle"><h2><%= non_planet.name %></h2> <br><b>Orbits:</b> <%= non_planet.orbit %> <br><b>Moon Size (Radius):</b> <%= non_planet.size %> Miles <br></td>
                     <td class="align-middle"><h2>$<%= non_planet.price %></h2></td>
                     
                     <td class="align-middle"><button class="btn btn-primary" onclick="insertToCart('<%=non_planet.name%>','<%=non_planet.price%>')">Add</button></td>
@@ -105,41 +75,6 @@
             <% })  %>
             </table>
         </div>
-        
-        
-<!-- Modal -->
-<!--<div class="modal fade" id="authorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><h1 id="authorName"></h1></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        
-         <div>
-            
-            <img id = "authorPic" width = 300px>
-            <br>
-            <h1 id="authorName"></h1>
-            <p id="dob"></p>
-            <p id="dod"></p>
-            <p id="sex"></p>
-            <p id="profession"></p>
-            <p id="country"></p>
-            <p id="bio"></p>
-            
-        </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>-->
 
     </body>
 </html>

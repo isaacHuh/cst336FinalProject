@@ -10,7 +10,7 @@ textarea {
 }
 
 input[type=text], select {
-  width: 50%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -20,7 +20,7 @@ input[type=text], select {
 }
 
 input[type=number], select {
-  width: 50%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -30,11 +30,25 @@ input[type=number], select {
 }
 
 input[type=password], select {
-  width: 50%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+#frontText{
+    background: rgba(0, 123, 255, 1);
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 0px 12px rgba(0, 0, 0, .84);
+}
+
+#frontPage{
+    background: rgba(0, 123, 255, 1);
+    padding: 80px;
+    border-radius: 5px;
+    box-shadow: 0 0px 12px rgba(0, 0, 0, .84);
 }
