@@ -41,14 +41,14 @@ input[type=password], select {
 
 #frontText{
     background: rgba(0, 123, 255, 1);
-    padding: 40px;
+    padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0px 12px rgba(0, 0, 0, .84);
 }
 
 #frontPage{
     background: rgba(0, 123, 255, 1);
-    padding: 80px;
+    padding: 50px;
     border-radius: 5px;
     box-shadow: 0 0px 12px rgba(0, 0, 0, .84);
 }
