@@ -18,13 +18,24 @@
        </script>
     </head>
     <body>
-        <nav class="text-center">
-            <br>
-            <a href="/"><strong>Home</strong></a>
-            <a href="/search"><strong>Search</strong></a>
-            <a href="/cart"><strong>Cart</strong></a>
-            <a href="/login"><strong>Login</strong></a>
-        </nav>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="/">Planetary Market</a>
+        
+            <div class="collapse navbar-collapse" id="navbarColor02">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/search">Search</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/cart">Cart</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        
         <h1 class="text-center display-3"><strong><i> Cart </i></strong></h1>
 
 
@@ -34,11 +45,12 @@
             <% let totalPrice = 0 
                 cart.forEach( function(element){ 
                     totalPrice += element.price%> 
+            
                 <tr>
-                    <td><h2><%= element.product %></h2></td>
-                    <td><h2>$<%= element.price %></h2></td>
-                </tr>
-                
+                    <td><img class="rounded" src="<%= element.image%>" width="200px"/></td>
+                    <td class="align-middle"><h2><%= element.name %></h2> <br><b>Climate:</b> <%= element.climate %> <br><b>Description:</b> <%= element.description %> <br><b>Size:</b> <%= element.size %> Miles <br><b>Distance from Sun:</b> <%= element.distance %> Miles </td>
+                    <td class="align-middle"><h2>$<%= element.price %></h2></td>
+               </tr>
                 
             <% })  %>
             </table>

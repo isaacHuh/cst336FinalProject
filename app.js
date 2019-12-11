@@ -47,13 +47,6 @@ app.get("/results", async function(req, res){
 app.post("/addToCart", async function(req, res){
     insertToCart(req.body.planetName, req.body.planetPrice);
     res.send(true);
-    
-    //+ "    " + req.body.planetPrice + " was added to your cart!");
-    
-    //let rows = await getPlanets(req.query);
-    //res.send("planetName: "+ req.body.planetName);
-    //res.render("quotes", {"records":rows});
-    //res.render("results", {"planets":planets});
 }); // results
 
 
@@ -235,7 +228,7 @@ function insertToCart(name, price){
            console.log("Connected!");
         
            let sql = `INSERT INTO cart
-                        (product, price)
+                        (name, price)
                          VALUES (?,?)`;
         
            let params = [name, price];
@@ -352,8 +345,7 @@ function getCart(){
             
             let params = [];
             
-           let sql = `SELECT product, price
-                      FROM cart`;
+           let sql = `SELECT * FROM cart NATURAL JOIN planets`;
         
            console.log("SQL:", sql)
            conn.query(sql, params, function (err, rows, fields) {

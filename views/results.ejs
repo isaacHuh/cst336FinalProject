@@ -27,13 +27,23 @@
         </script>
     </head>
     <body>
-        <nav class="text-center">
-            <br>
-            <a href="/"><strong>Home</strong></a>
-            <a href="/search"><strong>Search</strong></a>
-            <a href="/cart"><strong>Cart</strong></a>
-            <a href="/login"><strong>Login</strong></a>
-        </nav>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="/">Planetary Market</a>
+
+            <div class="collapse navbar-collapse" id="navbarColor02">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/search">Search</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/cart">Cart</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
         
          <h1 class="text-center display-3"><strong><i> Planets For Sale: </i></strong></h1>
          
@@ -43,7 +53,7 @@
     
                 <tr>
                     <td><img class="rounded" src="<%=planet.image%>" width="200px"/></td>
-                    <td class="align-middle"><h2><%= planet.name %></h2> <br>Planet Climate: <%= planet.climate %> <br>Planet Description: <%= planet.description %> <br>Planet Size: <%= planet.size %> <br>Distance from Sun: <%= planet.distance %> </td>
+                    <td class="align-middle"><h2><%= planet.name %></h2> <br><b>Planet Climate:</b> <%= planet.climate %> <br><b>Planet Description:</b> <%= planet.description %> <br><b>Planet Size:</b> <%= planet.size %> Miles <br><b>Distance from Sun:</b> <%= planet.distance %> Miles </td>
                     <td class="align-middle"><h2>$<%= planet.price %></h2></td>
                     
                     <td class="align-middle"><button class="btn btn-primary" onclick="insertToCart('<%=planet.name%>','<%=planet.price%>')">Add To Cart</button></td>
