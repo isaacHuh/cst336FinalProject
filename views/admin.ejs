@@ -20,7 +20,7 @@
         
         
     </head>
-    <body>
+    <body class="text-center">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="/">Planetary Market</a>
         
@@ -35,16 +35,20 @@
                 <li class="nav-item">
                   <a class="nav-link" href="/login">Login</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin">Admin</a>
+                </li>
               </ul>
             </div>
           </nav>
           
-        <h1> Admin Section </h1>
+        <h1 class="text-center display-3"><strong><i> Admin Section </i></strong></h1>
 
         <form action="/addPlanet">
-          <button> Add New Planet </button>
+          <br><button class="btn btn-primary"> Add New Planet </button><br>
         </form>
         
+        <br>
         <h3>Planets</h3>
         
         <% planetList.forEach(function(planet){  %>

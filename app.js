@@ -149,10 +149,10 @@ function insertPlanet(body){
            console.log("Connected!");
         
            let sql = `INSERT INTO planets
-                        (name, price)
-                         VALUES (?,?)`;
+                        (name, price, image, climate, description, year_discovered, size, distance)
+                         VALUES (?,?,?,?,?,?,?,?)`;
         
-           let params = [body.name, body.price];
+           let params = [body.name, body.price, body.image, body.climate, body.description, body.year_discovered, body.size, body.distance];
         
            conn.query(sql, params, function (err, rows, fields) {
               if (err) throw err;
@@ -175,11 +175,17 @@ function updatePlanet(body){
            console.log("Connected!");
         
            let sql = `UPDATE planets
-                      SET name = ?, 
-                          price = ?
+                      SET price = ?,
+                      image = ?, 
+                      climate = ?, 
+                      description = ?, 
+                      year_discovered = ?,
+                      size = ?,
+                      distance = ?
+                      
                      WHERE name = ?`;
         
-           let params = [body.name, body.price];
+           let params = [body.price, body.image, body.climate, body.description, body.year_discovered, body.size, body.distance, body.name];
         
            console.log(sql);
            
