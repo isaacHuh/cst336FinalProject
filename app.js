@@ -256,6 +256,7 @@ function getAveragePlanetPrice(){
               //res.send(rows);
               //conn.end();
               //onsole.log(rows);
+              conn.end();
               resolve(rows);
            });
         
@@ -276,7 +277,8 @@ function getLargestPlanet(){
         
            conn.query(sql, [], function (err, rows, fields) {
               if (err) throw err;
-
+                
+                conn.end();
               resolve(rows);
            });
         
@@ -298,6 +300,7 @@ function getAverageMoonPrice(){
         
            conn.query(sql, [], function (err, rows, fields) {
               if (err) throw err;
+              conn.end();
               resolve(rows);
            });
         
@@ -371,7 +374,7 @@ function getPlanetList(){
            conn.query(sql, function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
-              //conn.end();
+              conn.end();
               resolve(rows);
            });
         
@@ -412,6 +415,7 @@ function getPlanets(query){
            conn.query(sql, params, function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
+              conn.end();
               resolve(rows);
            });
         
@@ -452,6 +456,7 @@ function getNonPlanets(query){
            conn.query(sql, params, function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
+              conn.end();
               resolve(rows);
            });
         
@@ -479,6 +484,7 @@ function getCartPlanets(){
            conn.query(sql, params, function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
+              conn.end();
               resolve(rows);
            });
         
@@ -504,6 +510,7 @@ function getCartNonPlanets(){
            conn.query(sql, params, function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
+              conn.end();
               resolve(rows);
            });
         
@@ -529,6 +536,7 @@ function clearCart(){
            conn.query(sql, params, function (err, rows, fields) {
               if (err) throw err;
               //res.send(rows);
+              conn.end();
               resolve(rows);
            });
         
