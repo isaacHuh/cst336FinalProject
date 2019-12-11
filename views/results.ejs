@@ -24,6 +24,37 @@
                 });//ajax
         
         } //document.ready
+        /*
+        $(document).ready(function(){
+        
+                $("a").on("click", function(){
+                    //alert("test"); 
+                    $.ajax({
+                
+                        method: "GET",
+                        url: "/authorInfo?=",
+                        dataType: "json",
+                        data: { "authorId": $(this).attr("id")},
+                        success: function(result,status) {
+                          //alert(result[0].firstName);
+                          $("#authorPic").attr("src",`${result[0].portrait}`);
+    
+                          $("#authorName").html(result[0].firstName + " " + result[0].lastName);
+                          $("#dob").html("DOB: " + result[0].dob);
+                          $("#dod").html("DOD: " + result[0].dod);
+                          $("#sex").html("Sex: " + result[0].sex);
+                          $("#profession").html("Profession: " + result[0].profession);
+                          $("#country").html("Country: " + result[0].country)
+                          $("#bio").html("Bio: " + result[0].biography);
+                          
+                          $('#authorModal').modal("show");
+                          
+                        }
+                
+                    });//ajax
+                })
+        });*/
+    
         </script>
     </head>
     <body>
@@ -63,5 +94,47 @@
             </table>
         </div>
         
+        
+<!-- Modal -->
+<!--<div class="modal fade" id="authorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><h1 id="authorName"></h1></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+         <div>
+            
+            <img id = "authorPic" width = 300px>
+            <br>
+            <h1 id="authorName"></h1>
+            <p id="dob"></p>
+            <p id="dod"></p>
+            <p id="sex"></p>
+            <p id="profession"></p>
+            <p id="country"></p>
+            <p id="bio"></p>
+
+            <!--dob: info[0].dob%><br>
+            dod: <info[0].dod%><br>
+            sex: <info[0].sex%><br>
+            profession: <info[0].profession%><br>
+            country: <info[0].country%><br>
+            bio: <info[0].biography%><br>-->
+            
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>-->
+
     </body>
 </html>
